@@ -21,14 +21,22 @@ class Snake:
         self.pos = pos
         self.facing = facing
         self.body = [SnakePiece((facing.opposite().move_pos(pos)))]
+        self.skip_adding_segment = False
 
     def move(self) -> None:
         if len(self.body) != 0:
-            last_piece = self.body.pop()
-            last_piece.pos = self.pos
-            self.body.insert(0, last_piece)
+            if not self.skip_adding_segment:
+                last_piece = self.body.pop()
+                last_piece.pos = self.pos
+                self.body.insert(0, last_piece)
+            else:
+                self.skip_adding_segment = False
 
         self.pos = self.facing.move_pos(self.pos)
+
+    def append_segment(self) -> None:
+        self.skip_adding_segment = True
+        self.body.insert(0, SnakePiece(self.pos))
 
     def rotate(self, facing: Dir) -> None:
         if facing != self.facing.opposite():
@@ -41,6 +49,10 @@ class Snake:
         for snake_piece in self.body:
             snake_piece.draw(block_size, surface)
 
+    def segment_posses(self, including_head=True):
+        return [self.pos] if including_head else [] + [segment.pos for segment in self.body]
+
     pos: tuple[int, int]
     facing: Dir
-    body = list[SnakePiece]
+    body:  list[SnakePiece]
+    skip_adding_segment: bool
