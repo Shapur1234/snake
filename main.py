@@ -7,11 +7,13 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
 
     pygame.init()
-    pygame.display.set_caption("Snek")
-    screen = pygame.display.set_mode((screen_width, screen_height))
+    pygame.display.set_caption("Snake")
+    screen = pygame.display.set_mode(
+        (screen_width, screen_height), pygame.RESIZABLE)
     font = pygame.font.Font(pygame.font.get_default_font(), 36)
 
-    game_state = Game(screen_width // 20, screen_height // 20, num_of_foods)
+    game_state = Game(screen.get_width() // 20,
+                      screen.get_height() // 20, num_of_foods)
 
     stopped = False
     running = True
@@ -24,8 +26,8 @@ if __name__ == "__main__":
                 if event.key == key_quit:
                     running = False
                 if event.key == key_reset:
-                    game_state = Game(screen_width // 20,
-                                      screen_height // 20, num_of_foods)
+                    game_state = Game(screen.get_width() // 20,
+                                      screen.get_height() // 20, num_of_foods)
                     stopped = False
                     continue
                 input_to_handle = event.key
