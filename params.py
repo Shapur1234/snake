@@ -12,8 +12,9 @@ background_color = (7, 42, 108)
 wall_color = (190, 190, 190)
 food_color = (255, 0, 0)
 
-snake_body_color = (28, 107, 0)
-snake_head_color = (108, 187, 80)
+snake_head_color = (2, 48, 32)
+snake_light_color = (124, 252, 0)
+repetition_length = 16
 
 key_up = (pygame.K_w, pygame.K_UP)
 key_down = (pygame.K_s, pygame.K_DOWN)

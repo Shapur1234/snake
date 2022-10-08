@@ -1,4 +1,4 @@
-from params import snake_head_color, snake_body_color
+from params import snake_head_color, snake_light_color, repetition_length
 from dir import Dir
 
 from typing import Tuple
@@ -9,9 +9,9 @@ class SnakePiece:
     def __init__(self, pos: tuple[int, int]) -> None:
         self.pos = pos
 
-    def draw(self, block_size: Tuple[int, int], surface) -> None:
-        pygame.draw.rect(surface, snake_body_color, pygame.Rect(
-            self.pos[0] * block_size[0], self.pos[1] * block_size[1], block_size[0], block_size[1]))
+    def draw(self, block_size: Tuple[int, int], color_index, surface) -> None:
+        pygame.draw.rect(surface, snake_body_color(color_index + 1), pygame.Rect(
+            self.pos[0] * block_size[0] + 1, self.pos[1] * block_size[1] + 1, block_size[0] - 2, block_size[1] - 2))
 
     pos: tuple[int, int]
 
@@ -46,8 +46,8 @@ class Snake:
         pygame.draw.rect(surface, snake_head_color, pygame.Rect(
             self.pos[0] * block_size[0], self.pos[1] * block_size[1], block_size[0], block_size[1]))
 
-        for snake_piece in self.body:
-            snake_piece.draw(block_size, surface)
+        for index, snake_piece in enumerate(self.body):
+            snake_piece.draw(block_size, index, surface)
 
     def segment_posses(self, including_head=True):
         return [self.pos] if including_head else [] + [segment.pos for segment in self.body]
@@ -56,3 +56,21 @@ class Snake:
     facing: Dir
     body:  list[SnakePiece]
     skip_adding_segment: bool
+
+
+def snake_body_color(color_index: int) -> Tuple[int, int, int]:
+    index = None
+    if ((color_index // repetition_length)) % 2 == 0:
+        index = color_index % repetition_length
+    else:
+        index = repetition_length - (color_index % repetition_length)
+
+    return lerp_color(snake_head_color, snake_light_color, index / repetition_length)
+
+
+def lerp(a: float, b: float, t: float) -> float:
+    return (1 - t) * a + t * b
+
+
+def lerp_color(col_a: Tuple[int, int, int], col_b: Tuple[int, int, int], by: float) -> Tuple[int, int, int]:
+    return (int(lerp(float(col_a[0]), float(col_b[0]), by)), int(lerp(float(col_a[1]), float(col_b[1]), by)), int(lerp(float(col_a[2]), float(col_b[2]), by)))
