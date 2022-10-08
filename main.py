@@ -1,15 +1,17 @@
 import sys
 sys.path.insert(1, "./classes")
 
-from params import screen_width, screen_height
-from game_field import GameField
+from params import screen_width, screen_height, fps_target
+from game import Game
 import pygame
 
 if __name__ == "__main__":
+    clock = pygame.time.Clock()
+
     pygame.init()
     screen = pygame.display.set_mode((screen_width, screen_height))
 
-    game_field = GameField(screen_width // 20, screen_height // 20)
+    game_state = Game(screen_width // 20, screen_height // 20)
 
     running = True
     while running:
@@ -17,7 +19,9 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 running = False
 
-        game_field.draw(screen)
+        game_state.draw(screen)
         pygame.display.flip()
+
+        clock.tick(fps_target)
 
 pygame.quit()

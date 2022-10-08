@@ -1,3 +1,4 @@
+from typing import Tuple
 from enum import Enum
 
 
@@ -16,5 +17,17 @@ class Dir(Enum):
             return Dir.LEFT
         if self.value == 3:
             return Dir.RIGHT
+
+        raise Exception("Unhandeled Dir")
+
+    def move_pos(self, pos: Tuple[int, int], by: int = 1) -> Tuple[int, int]:
+        if self.value == 0:
+            return (pos[0], pos[1] + by)
+        if self.value == 1:
+            return (pos[0], pos[1] - by)
+        if self.value == 2:
+            return (pos[0] + by, pos[1])
+        if self.value == 3:
+            return (pos[0] + by, pos[1])
 
         raise Exception("Unhandeled Dir")
