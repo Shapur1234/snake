@@ -2,8 +2,10 @@ import sys
 sys.path.insert(1, "./classes")
 
 from params import screen_width, screen_height, fps_target
+from dir import Dir
 from game import Game
 import pygame
+
 
 if __name__ == "__main__":
     clock = pygame.time.Clock()
@@ -18,6 +20,10 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.KEYDOWN:
+                game_state.handle_input(event.key)
+
+        game_state.game_tick()
 
         game_state.draw(screen)
         pygame.display.flip()

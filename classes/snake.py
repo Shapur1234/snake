@@ -23,14 +23,16 @@ class Snake:
         self.body = [SnakePiece((facing.opposite().move_pos(pos)))]
 
     def move(self) -> None:
-        if len(self.body) > 1:
-            self.body[-1].pos = self.pos
+        if len(self.body) != 0:
+            last_piece = self.body.pop()
+            last_piece.pos = self.pos
+            self.body.insert(0, last_piece)
 
         self.pos = self.facing.move_pos(self.pos)
 
-    def rotate(self, dir: Dir) -> None:
-        if dir != self.dir.opposite():
-            self.dir = dir
+    def rotate(self, facing: Dir) -> None:
+        if facing != self.facing.opposite():
+            self.facing = facing
 
     def draw(self, block_size: Tuple[int, int], surface) -> None:
         pygame.draw.rect(surface, snake_head_color, pygame.Rect(
