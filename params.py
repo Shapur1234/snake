@@ -1,11 +1,11 @@
 import pygame
 
-screen_width = 1200
-screen_height = 800
+screen_width = 640
+screen_height = 360
+tile_scale = 32
+fps_target = 16
 
-fps_target = 20
-
-num_of_foods = 100
+num_of_foods = 64
 
 text_color = (255, 255, 255)
 background_color = (7, 42, 108)
@@ -14,7 +14,7 @@ food_color = (255, 0, 0)
 
 snake_head_color = (2, 48, 32)
 snake_light_color = (124, 252, 0)
-repetition_length = 16
+repetition_length = 32
 
 key_up = (pygame.K_w, pygame.K_UP)
 key_down = (pygame.K_s, pygame.K_DOWN)

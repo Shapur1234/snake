@@ -50,7 +50,7 @@ class Snake:
             snake_piece.draw(block_size, index, surface)
 
     def segment_posses(self, including_head=True):
-        return [self.pos] if including_head else [] + [segment.pos for segment in self.body]
+        return ([self.pos] if including_head else []) + [segment.pos for segment in self.body]
 
     pos: tuple[int, int]
     facing: Dir

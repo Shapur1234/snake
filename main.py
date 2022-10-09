@@ -1,4 +1,4 @@
-from params import text_color, screen_width, screen_height, fps_target, key_reset, key_quit, num_of_foods
+from params import text_color, screen_width, screen_height, fps_target, key_reset, key_quit, num_of_foods, tile_scale
 from game import Game
 import pygame
 
@@ -12,8 +12,8 @@ if __name__ == "__main__":
         (screen_width, screen_height), pygame.RESIZABLE)
     font = pygame.font.Font(pygame.font.get_default_font(), 36)
 
-    game_state = Game(screen.get_width() // 20,
-                      screen.get_height() // 20, num_of_foods)
+    game_state = Game(screen.get_width() // tile_scale,
+                      screen.get_height() // tile_scale, num_of_foods)
 
     stopped = False
     running = True
@@ -26,8 +26,8 @@ if __name__ == "__main__":
                 if event.key == key_quit:
                     running = False
                 if event.key == key_reset:
-                    game_state = Game(screen.get_width() // 20,
-                                      screen.get_height() // 20, num_of_foods)
+                    game_state = Game(screen.get_width() // tile_scale,
+                                      screen.get_height() // tile_scale, num_of_foods)
                     stopped = False
                     continue
                 input_to_handle = event.key

@@ -25,8 +25,7 @@ class Game:
             key = (rnd.randint(0, self.game_field.width - 1),
                    rnd.randint(0, self.game_field.height - 1))
 
-            if (key not in self.snake.segment_posses()
-                    and self.game_field.get_field(key) == Tile.EMPTY):
+            if self.game_field.get_field(key) == Tile.EMPTY and key not in self.snake.segment_posses():
                 self.game_field.set_field(key, Tile.FOOD)
                 break
 
