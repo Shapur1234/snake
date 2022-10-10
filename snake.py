@@ -17,7 +17,7 @@ class SnakePiece:
 
 
 class Snake:
-    def __init__(self, pos: tuple[int, int], facing: Dir = Dir.RIGHT) -> None:
+    def __init__(self, pos: tuple[int, int] = (0, 0), facing: Dir = Dir.RIGHT) -> None:
         self.pos = pos
         self.facing = facing
         self.body = [SnakePiece((facing.opposite().move_pos(pos)))]

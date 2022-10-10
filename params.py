@@ -22,3 +22,5 @@ key_right = (pygame.K_d, pygame.K_RIGHT)
 key_left = (pygame.K_a, pygame.K_LEFT)
 key_reset = pygame.K_r
 key_quit = pygame.K_q
+key_speed_up = pygame.K_k
+key_speed_down = pygame.K_j

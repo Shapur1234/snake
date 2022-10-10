@@ -1,4 +1,4 @@
-from params import text_color, screen_width, screen_height, fps_target, key_reset, key_quit, num_of_foods, tile_scale
+from params import text_color, screen_width, screen_height, fps_target, key_reset, key_quit, num_of_foods, tile_scale, key_speed_up, key_speed_down
 from game import Game
 import pygame
 
@@ -30,6 +30,11 @@ if __name__ == "__main__":
                                       screen.get_height() // tile_scale, num_of_foods)
                     stopped = False
                     continue
+                if event.key == key_speed_up:
+                    fps_target = max(fps_target + 4, 1)
+                if event.key == key_speed_down:
+                    fps_target = max(fps_target - 4, 1)
+
                 input_to_handle = event.key
 
         if not stopped:

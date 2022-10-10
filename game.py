@@ -10,7 +10,8 @@ from tile import Tile
 class Game:
     def __init__(self, width: int, height: int, num_of_foods: int = 1) -> None:
         self.game_field = GameField(width, height)
-        self.snake = Snake((width // 2, height // 2))
+        # self.snake = Snake((width // 2, height // 2))
+        self.snake = Snake()
 
         for _ in range(num_of_foods):
             self.spawn_food()
