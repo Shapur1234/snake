@@ -25,14 +25,14 @@ class GameField:
 
         return (x, y)
 
-    def draw(self, surface) -> None:
+    def draw(self, surface, offset: Tuple[int, int] = (0, 0)) -> None:
         block_width, block_height = self.block_size(surface)
         for index, tile in enumerate(self.data):
             if tile != Tile.EMPTY:
                 x, y = self.xy_from_index(index)
 
                 pygame.draw.rect(surface, tile.color(), pygame.Rect(
-                    x * block_width + 1, y * block_height, block_width - 2, block_height - 2))
+                    x * block_width + 1 + offset[0], y * block_height + offset[1], block_width - 2, block_height - 2))
 
     width: int
     height: int

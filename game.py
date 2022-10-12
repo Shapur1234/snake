@@ -1,8 +1,9 @@
-import random as rnd
+import random
+import pygame
 
 from game_field import GameField
 from snake import Snake
-from params import background_color, key_up, key_down, key_right, key_left
+from params import background_color, key_up, key_down, key_right, key_left, border_color
 from dir import Dir
 from tile import Tile
 
@@ -10,21 +11,34 @@ from tile import Tile
 class Game:
     def __init__(self, width: int, height: int, num_of_foods: int = 1) -> None:
         self.game_field = GameField(width, height)
-        # self.snake = Snake((width // 2, height // 2))
-        self.snake = Snake()
+        self.snake = Snake((width // 2, height // 2))
 
         for _ in range(num_of_foods):
             self.spawn_food()
 
     def draw(self, surface) -> None:
+        block_size = self.game_field.block_size(surface)
+        screen_size = (surface.get_width(), surface.get_height())
+        offset = ((screen_size[0] % block_size[0]) // 2,
+                  (screen_size[1] % block_size[1]) // 2)
+
         surface.fill(background_color)
-        self.game_field.draw(surface)
-        self.snake.draw(self.game_field.block_size(surface), surface)
+        pygame.draw.rect(surface, border_color,
+                         pygame.Rect(0, 0, offset[0], screen_size[1]))
+        pygame.draw.rect(surface, border_color,
+                         pygame.Rect(0, 0, screen_size[0], offset[1]))
+        pygame.draw.rect(surface, border_color,
+                         pygame.Rect(screen_size[0] - offset[0], 0, offset[0], screen_size[1]))
+        pygame.draw.rect(surface, border_color,
+                         pygame.Rect(0, screen_size[1] - offset[1], screen_size[0], offset[1]))
+
+        self.game_field.draw(surface, offset)
+        self.snake.draw(self.game_field.block_size(surface), surface, offset)
 
     def spawn_food(self) -> None:
         for _ in range(self.game_field.width * self.game_field.height):
-            key = (rnd.randint(0, self.game_field.width - 1),
-                   rnd.randint(0, self.game_field.height - 1))
+            key = (random.randint(0, self.game_field.width - 1),
+                   random.randint(0, self.game_field.height - 1))
 
             if self.game_field.get_field(key) == Tile.EMPTY and key not in self.snake.segment_posses():
                 self.game_field.set_field(key, Tile.FOOD)

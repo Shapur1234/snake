@@ -11,6 +11,7 @@ text_color = (255, 255, 255)
 background_color = (7, 42, 108)
 wall_color = (190, 190, 190)
 food_color = (255, 0, 0)
+border_color = (0, 0, 63)
 
 snake_head_color = (2, 48, 32)
 snake_light_color = (124, 252, 0)

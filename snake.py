@@ -9,9 +9,9 @@ class SnakePiece:
     def __init__(self, pos: tuple[int, int]) -> None:
         self.pos = pos
 
-    def draw(self, block_size: Tuple[int, int], color_index, surface) -> None:
+    def draw(self, block_size: Tuple[int, int], color_index, surface, offset: Tuple[int, int] = (0, 0)) -> None:
         pygame.draw.rect(surface, snake_body_color(color_index + 1), pygame.Rect(
-            self.pos[0] * block_size[0] + 1, self.pos[1] * block_size[1] + 1, block_size[0] - 2, block_size[1] - 2))
+            self.pos[0] * block_size[0] + 1 + offset[0], self.pos[1] * block_size[1] + 1 + offset[1], block_size[0] - 2, block_size[1] - 2))
 
     pos: tuple[int, int]
 
@@ -42,12 +42,12 @@ class Snake:
         if facing != self.facing.opposite():
             self.facing = facing
 
-    def draw(self, block_size: Tuple[int, int], surface) -> None:
+    def draw(self, block_size: Tuple[int, int], surface, offset: Tuple[int, int] = (0, 0)) -> None:
         pygame.draw.rect(surface, snake_head_color, pygame.Rect(
-            self.pos[0] * block_size[0], self.pos[1] * block_size[1], block_size[0], block_size[1]))
+            self.pos[0] * block_size[0] + offset[0], self.pos[1] * block_size[1] + offset[1], block_size[0], block_size[1]))
 
         for index, snake_piece in enumerate(self.body):
-            snake_piece.draw(block_size, index, surface)
+            snake_piece.draw(block_size, index, surface, offset)
 
     def segment_posses(self, including_head=True):
         return ([self.pos] if including_head else []) + [segment.pos for segment in self.body]
