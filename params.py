@@ -1,3 +1,5 @@
+# This files stores hand-tuneable parameters of the game
+
 import pygame
 
 screen_width = 640
@@ -5,11 +7,11 @@ screen_height = 360
 tile_scale = 32
 fps_target = 16
 
+# How many tiles with food will be spawned
 num_of_foods = 64
 
 text_color = (255, 255, 255)
 background_color = (7, 42, 108)
-wall_color = (190, 190, 190)
 food_color = (255, 0, 0)
 border_color = (0, 0, 63)
 

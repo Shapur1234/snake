@@ -5,6 +5,7 @@ from typing import Tuple
 import pygame
 
 
+# Object representing bodypieces (excluding the head) of the snake
 class SnakePiece:
     def __init__(self, pos: tuple[int, int]) -> None:
         self.pos = pos
@@ -16,6 +17,7 @@ class SnakePiece:
     pos: tuple[int, int]
 
 
+# Object representing the snake and handeling its movement
 class Snake:
     def __init__(self, pos: tuple[int, int] = (0, 0), facing: Dir = Dir.RIGHT) -> None:
         self.pos = pos
@@ -72,5 +74,6 @@ def lerp(a: float, b: float, t: float) -> float:
     return (1 - t) * a + t * b
 
 
+# Function linearly interpolating two colors - computing color between 2 colors at a given percentage (by)
 def lerp_color(col_a: Tuple[int, int, int], col_b: Tuple[int, int, int], by: float) -> Tuple[int, int, int]:
     return (int(lerp(float(col_a[0]), float(col_b[0]), by)), int(lerp(float(col_a[1]), float(col_b[1]), by)), int(lerp(float(col_a[2]), float(col_b[2]), by)))

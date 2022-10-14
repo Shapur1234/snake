@@ -6,6 +6,7 @@ import pygame
 if __name__ == "__main__":
     clock = pygame.time.Clock()
 
+    # Pygame initialization
     pygame.init()
     pygame.display.set_caption("Snake")
     screen = pygame.display.set_mode(
@@ -17,6 +18,7 @@ if __name__ == "__main__":
 
     stopped = False
     running = True
+    # Main game loop
     while running:
         input_to_handle = None
         for event in pygame.event.get():

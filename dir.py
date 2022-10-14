@@ -2,6 +2,7 @@ from typing import Tuple
 from enum import Enum
 
 
+# Enum representing directions
 class Dir(Enum):
     UP = 0
     DOWN = 1

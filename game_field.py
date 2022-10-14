@@ -4,6 +4,7 @@ import pygame
 from typing import Tuple
 
 
+# Object representing the game filed - the space on which the snake moves
 class GameField:
     def __init__(self, width: int, height: int) -> None:
         self.width = width

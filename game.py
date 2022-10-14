@@ -8,6 +8,7 @@ from dir import Dir
 from tile import Tile
 
 
+# Object storing game state and game logic
 class Game:
     def __init__(self, width: int, height: int, num_of_foods: int = 1) -> None:
         self.game_field = GameField(width, height)
