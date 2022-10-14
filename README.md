@@ -6,7 +6,6 @@
 ![Screenshot 2](/screenshots/2.png?raw=true "Screenshot 2")
 ## How to use
 * Start the programm by executing [main.py](/main.py) in the python interpreter (usually "$ python main.py" or "$ python3 main.py")
-* Once 
 * You can reset the game by pressing [R], quit by pressing [Q] 
 * #### Controls: 
 ```
