@@ -10,9 +10,23 @@ class SnakePiece:
     def __init__(self, pos: tuple[int, int]) -> None:
         self.pos = pos
 
-    def draw(self, block_size: Tuple[int, int], color_index, surface, offset: Tuple[int, int] = (0, 0)) -> None:
-        pygame.draw.rect(surface, snake_body_color(color_index + 1), pygame.Rect(
-            self.pos[0] * block_size[0] + 1 + offset[0], self.pos[1] * block_size[1] + 1 + offset[1], block_size[0] - 2, block_size[1] - 2))
+    def draw(
+        self,
+        block_size: Tuple[int, int],
+        color_index,
+        surface,
+        offset: Tuple[int, int] = (0, 0),
+    ) -> None:
+        pygame.draw.rect(
+            surface,
+            snake_body_color(color_index + 1),
+            pygame.Rect(
+                self.pos[0] * block_size[0] + 1 + offset[0],
+                self.pos[1] * block_size[1] + 1 + offset[1],
+                block_size[0] - 2,
+                block_size[1] - 2,
+            ),
+        )
 
     pos: tuple[int, int]
 
@@ -44,19 +58,31 @@ class Snake:
         if facing != self.facing.opposite():
             self.facing = facing
 
-    def draw(self, block_size: Tuple[int, int], surface, offset: Tuple[int, int] = (0, 0)) -> None:
+    def draw(
+        self, block_size: Tuple[int, int], surface, offset: Tuple[int, int] = (0, 0)
+    ) -> None:
         for index, snake_piece in enumerate(self.body):
             snake_piece.draw(block_size, index, surface, offset)
 
-        pygame.draw.rect(surface, snake_head_color, pygame.Rect(
-            self.pos[0] * block_size[0] + offset[0], self.pos[1] * block_size[1] + offset[1], block_size[0], block_size[1]))
+        pygame.draw.rect(
+            surface,
+            snake_head_color,
+            pygame.Rect(
+                self.pos[0] * block_size[0] + offset[0],
+                self.pos[1] * block_size[1] + offset[1],
+                block_size[0],
+                block_size[1],
+            ),
+        )
 
     def segment_posses(self, including_head=True):
-        return ([self.pos] if including_head else []) + [segment.pos for segment in self.body]
+        return ([self.pos] if including_head else []) + [
+            segment.pos for segment in self.body
+        ]
 
     pos: tuple[int, int]
     facing: Dir
-    body:  list[SnakePiece]
+    body: list[SnakePiece]
     skip_adding_segment: bool
 
 
@@ -75,5 +101,11 @@ def lerp(a: float, b: float, t: float) -> float:
 
 
 # Function linearly interpolating two colors - computing color between 2 colors at a given percentage (by)
-def lerp_color(col_a: Tuple[int, int, int], col_b: Tuple[int, int, int], by: float) -> Tuple[int, int, int]:
-    return (int(lerp(float(col_a[0]), float(col_b[0]), by)), int(lerp(float(col_a[1]), float(col_b[1]), by)), int(lerp(float(col_a[2]), float(col_b[2]), by)))
+def lerp_color(
+    col_a: Tuple[int, int, int], col_b: Tuple[int, int, int], by: float
+) -> Tuple[int, int, int]:
+    return (
+        int(lerp(float(col_a[0]), float(col_b[0]), by)),
+        int(lerp(float(col_a[1]), float(col_b[1]), by)),
+        int(lerp(float(col_a[2]), float(col_b[2]), by)),
+    )

@@ -32,8 +32,16 @@ class GameField:
             if tile != Tile.EMPTY:
                 x, y = self.xy_from_index(index)
 
-                pygame.draw.rect(surface, tile.color(), pygame.Rect(
-                    x * block_width + 1 + offset[0], y * block_height + offset[1], block_width - 2, block_height - 2))
+                pygame.draw.rect(
+                    surface,
+                    tile.color(),
+                    pygame.Rect(
+                        x * block_width + 1 + offset[0],
+                        y * block_height + offset[1],
+                        block_width - 2,
+                        block_height - 2,
+                    ),
+                )
 
     width: int
     height: int

@@ -20,28 +20,43 @@ class Game:
     def draw(self, surface) -> None:
         block_size = self.game_field.block_size(surface)
         screen_size = (surface.get_width(), surface.get_height())
-        offset = ((screen_size[0] % block_size[0]) // 2,
-                  (screen_size[1] % block_size[1]) // 2)
+        offset = (
+            (screen_size[0] % block_size[0]) // 2,
+            (screen_size[1] % block_size[1]) // 2,
+        )
 
         surface.fill(background_color)
-        pygame.draw.rect(surface, border_color,
-                         pygame.Rect(0, 0, offset[0], screen_size[1]))
-        pygame.draw.rect(surface, border_color,
-                         pygame.Rect(0, 0, screen_size[0], offset[1]))
-        pygame.draw.rect(surface, border_color,
-                         pygame.Rect(screen_size[0] - offset[0], 0, offset[0], screen_size[1]))
-        pygame.draw.rect(surface, border_color,
-                         pygame.Rect(0, screen_size[1] - offset[1], screen_size[0], offset[1]))
+        pygame.draw.rect(
+            surface, border_color, pygame.Rect(0, 0, offset[0], screen_size[1])
+        )
+        pygame.draw.rect(
+            surface, border_color, pygame.Rect(0, 0, screen_size[0], offset[1])
+        )
+        pygame.draw.rect(
+            surface,
+            border_color,
+            pygame.Rect(screen_size[0] - offset[0], 0, offset[0], screen_size[1]),
+        )
+        pygame.draw.rect(
+            surface,
+            border_color,
+            pygame.Rect(0, screen_size[1] - offset[1], screen_size[0], offset[1]),
+        )
 
         self.game_field.draw(surface, offset)
         self.snake.draw(self.game_field.block_size(surface), surface, offset)
 
     def spawn_food(self) -> None:
         for _ in range(self.game_field.width * self.game_field.height):
-            key = (random.randint(0, self.game_field.width - 1),
-                   random.randint(0, self.game_field.height - 1))
+            key = (
+                random.randint(0, self.game_field.width - 1),
+                random.randint(0, self.game_field.height - 1),
+            )
 
-            if self.game_field.get_field(key) == Tile.EMPTY and key not in self.snake.segment_posses():
+            if (
+                self.game_field.get_field(key) == Tile.EMPTY
+                and key not in self.snake.segment_posses()
+            ):
                 self.game_field.set_field(key, Tile.FOOD)
                 break
 
@@ -50,7 +65,9 @@ class Game:
 
     def check_wall_collision(self) -> bool:
         x, y = self.snake.pos
-        return (x < 0 or x >= self.game_field.width) or (y < 0 or y >= self.game_field.height)
+        return (x < 0 or x >= self.game_field.width) or (
+            y < 0 or y >= self.game_field.height
+        )
 
     def check_segment_collision(self) -> bool:
         return self.snake.pos in self.snake.segment_posses(False)

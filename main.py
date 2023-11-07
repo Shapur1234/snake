@@ -1,4 +1,15 @@
-from params import text_color, screen_width, screen_height, fps_target, key_reset, key_quit, num_of_foods, tile_scale, key_speed_up, key_speed_down
+from params import (
+    text_color,
+    screen_width,
+    screen_height,
+    fps_target,
+    key_reset,
+    key_quit,
+    num_of_foods,
+    tile_scale,
+    key_speed_up,
+    key_speed_down,
+)
 from game import Game
 import pygame
 
@@ -9,12 +20,14 @@ if __name__ == "__main__":
     # Pygame initialization
     pygame.init()
     pygame.display.set_caption("Snake")
-    screen = pygame.display.set_mode(
-        (screen_width, screen_height), pygame.RESIZABLE)
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.RESIZABLE)
     font = pygame.font.Font(pygame.font.get_default_font(), 36)
 
-    game_state = Game(screen.get_width() // tile_scale,
-                      screen.get_height() // tile_scale, num_of_foods)
+    game_state = Game(
+        screen.get_width() // tile_scale,
+        screen.get_height() // tile_scale,
+        num_of_foods,
+    )
 
     stopped = False
     running = True
@@ -28,8 +41,11 @@ if __name__ == "__main__":
                 if event.key == key_quit:
                     running = False
                 if event.key == key_reset:
-                    game_state = Game(screen.get_width() // tile_scale,
-                                      screen.get_height() // tile_scale, num_of_foods)
+                    game_state = Game(
+                        screen.get_width() // tile_scale,
+                        screen.get_height() // tile_scale,
+                        num_of_foods,
+                    )
                     stopped = False
                     continue
                 if event.key == key_speed_up:
@@ -46,8 +62,9 @@ if __name__ == "__main__":
 
         game_state.draw(screen)
         if stopped:
-            screen.blit(font.render(
-                f"Score: {game_state.score()}", True, text_color), (16, 16))
+            screen.blit(
+                font.render(f"Score: {game_state.score()}", True, text_color), (16, 16)
+            )
 
         pygame.display.flip()
         clock.tick(fps_target)
